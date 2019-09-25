@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    $categories = App\Domains\Category\Models\Category::get();
+    $categories = App\Domains\Category\Models\Category::parentsOnly()->ordered()->get();
     dd($categories);
 });
 
