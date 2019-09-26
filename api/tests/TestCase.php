@@ -13,7 +13,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $apiVersion = 'v1';
 
-    public function getFromApi($route, $data)
+    public function getFromApi($route, $data = [])
     {
         return $this->apiCall('GET', $route, $data);
     }

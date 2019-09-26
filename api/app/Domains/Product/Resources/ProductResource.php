@@ -2,6 +2,8 @@
 
 namespace App\Domains\Product\Resources;
 
+use App\Domains\Product\Resources\ProductVariationResource;
+
 class ProductResource extends ProductIndexResource
 {
     /**
@@ -14,7 +16,7 @@ class ProductResource extends ProductIndexResource
     {
         return array_merge(parent::toArray($request), [
             'price' => $this->price,
-            'variations' => []
+            'variations' => ProductVariationResource::collection($this->variations)
         ]);
     }
 }

@@ -21,7 +21,7 @@ class Filterer
     public function apply(Builder $builder, array $filters)
     {
         foreach ($filters as $key => $filter) {
-            if (!$filter instanceof FilterContract) {
+            if (!$filter instanceof FilterContract || !$this->request->has($key)) {
                 continue;
             }
 
