@@ -49,6 +49,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+      baseURL: 'http://martialclothing.localhost/api/v1'
   },
   /*
   ** Build configuration
