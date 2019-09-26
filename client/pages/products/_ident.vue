@@ -33,10 +33,11 @@
             }
         },
         async asyncData ({ params, app }) {
-            let response = await app.$axios.get('products/' + params.ident)
+            let response = await app.$axios.$get('products/' + params.ident)
+            console.log(response.data)
 
             return {
-                product: response.data.data
+                product: response.data
             }
         }
     }
