@@ -35,7 +35,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function we_can_order_all_categories_by_the_order_field(): void
     {
-        $category = factory(Category::class)->create(['order' => 2]);
+        factory(Category::class)->create(['order' => 2]);
         $anotherCategory = factory(Category::class)->create(['order' => 1]);
 
         $this->assertEquals($anotherCategory->name, Category::ordered()->first()->name);
