@@ -1,13 +1,10 @@
 <?php
 
-Route::get('/', function () {
-    $categories = App\Domains\Category\Models\Category::parentsOnly()->ordered()->get();
-    dd($categories);
-});
-
 Route::get('/ping', function () {
-    return response()->json([
-        'pong' => time()
-    ]);
+    // Fun little endpoint to test the response
+    return response()->json(['pong' => time()]);
 });
 
+Route::resource('categories', 'CategoryController');
+
+Route::resource('products', 'ProductController');

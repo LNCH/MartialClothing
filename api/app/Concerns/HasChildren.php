@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait HasChildren
 {
-    public function scopeParentsOnly(Builder $builder): void
+    public function scopeParents(Builder $builder): void
     {
         $builder->whereNull('parent_id');
     }

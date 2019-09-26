@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Category\Models;
 
 use App\Domains\Category\Models\Category;
-use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 class CategoryTest extends TestCase
@@ -29,7 +28,7 @@ class CategoryTest extends TestCase
             factory(Category::class)->create()
         );
 
-        $this->assertEquals(1, Category::parentsOnly()->count());
+        $this->assertEquals(1, Category::parents()->count());
     }
 
     /** @test */
