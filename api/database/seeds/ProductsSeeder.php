@@ -29,11 +29,11 @@ class ProductsSeeder extends Seeder
                 'category' => 'clothing',
             ],
             [
-                'name' => 'Kit Bag',
-                'ident' => 'kit-bag',
+                'name' => 'Columbian Dark Roast',
+                'ident' => 'columbian-dark-roast',
                 'price' => 5000,
-                'description' => 'Large kit bag for all your training gear',
-                'category' => 'equipment'
+                'description' => 'Some really strong coffee',
+                'category' => 'coffee'
             ]
         ];
 

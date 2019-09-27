@@ -18,9 +18,9 @@ class CategoriesSeeder extends Seeder
             'order' => 1,
         ]);
 
-        $equipment = Category::firstOrCreate([
-            'name' => 'Equipment',
-            'ident' => 'equipment',
+        $coffee = Category::firstOrCreate([
+            'name' => 'Coffee',
+            'ident' => 'coffee',
             'order' => 2,
         ]);
 
