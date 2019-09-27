@@ -2,6 +2,7 @@
 
 namespace App\Core\Console;
 
+use App\Core\Console\Commands\ResetInitialData;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        ResetInitialData::class,
     ];
 
     /**
