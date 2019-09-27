@@ -3,12 +3,13 @@
 namespace App\Domains\Product\Models;
 
 use App\Concerns\Filterable;
+use App\Concerns\HasPrice;
 use App\Domains\Category\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use Filterable;
+    use HasPrice, Filterable;
 
     protected $fillable = [
         'name',
