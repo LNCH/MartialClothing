@@ -16,7 +16,7 @@
                         <hr>
 
                         <span class="tag is-rounded is-medium">
-                            Product price
+                            {{ product.price }}
                         </span>
                     </section>
                 </div>
