@@ -21,9 +21,9 @@ class ProductTest extends TestCase
     /** @test */
     public function it_has_many_categories(): void
     {
-        $product = factory(Product::class)->create();
+        $product = create(Product::class);
         $product->categories()->save(
-            factory(Category::class)->create()
+            create(Category::class)
         );
 
         $this->assertInstanceOf(Category::class, $product->categories->first());
@@ -32,9 +32,9 @@ class ProductTest extends TestCase
     /** @test */
     public function it_has_many_variations(): void
     {
-        $product = factory(Product::class)->create();
+        $product = create(Product::class);
         $product->variations()->save(
-            factory(ProductVariation::class)->create()
+            create(ProductVariation::class)
         );
 
         $this->assertInstanceOf(ProductVariation::class, $product->variations->first());
