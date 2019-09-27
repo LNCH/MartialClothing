@@ -6,6 +6,7 @@ use App\Domains\Product\Models\Product;
 use App\Domains\Product\Models\ProductVariation;
 use App\Domains\Product\Models\ProductVariationType;
 use App\Domains\Product\Models\StockBlock;
+use App\Domains\Product\Models\StockInformation;
 use App\Services\Money;
 use Tests\TestCase;
 
@@ -85,5 +86,70 @@ class ProductVariationTest extends TestCase
         );
 
         $this->assertInstanceOf(StockBlock::class, $variation->stockBlocks->first());
+    }
+
+    /** @test */
+    public function it_has_stock_information(): void
+    {
+        $variation = create(ProductVariation::class);
+
+        $variation->stockBlocks()->save(
+            make(StockBlock::class)
+        );
+
+        $this->assertInstanceOf(StockInformation::class, $variation->stockInformation);
+    }
+
+    /** @test */
+    public function it_has_stock_count_pivot_within_stock_information(): void
+    {
+        $variation = create(ProductVariation::class);
+
+        $variation->stockBlocks()->save(
+            make(StockBlock::class, [
+                'quantity' => $quantity = 5
+            ])
+        );
+
+        $this->assertEquals($variation->stockInformation->stock, $quantity);
+    }
+
+    /** @test */
+    public function it_shows_if_product_is_in_stock_in_stock_information(): void
+    {
+        $variation = create(ProductVariation::class);
+
+        $variation->stockBlocks()->save(
+            make(StockBlock::class)
+        );
+
+        $this->assertTrue((bool) $variation->stockInformation->in_stock);
+    }
+
+    /** @test */
+    public function it_can_check_if_in_stock_using_helper_method(): void
+    {
+        $variation = create(ProductVariation::class);
+
+        $variation->stockBlocks()->save(
+            make(StockBlock::class)
+        );
+
+        $this->assertTrue($variation->inStock());
+    }
+
+    /** @test */
+    public function it_shows_the_stock_count_using_the_helper_method(): void
+    {
+        $variation = create(ProductVariation::class);
+
+        $variation->stockBlocks()->save(
+            make(StockBlock::class, ['quantity' => 5])
+        );
+        $variation->stockBlocks()->save(
+            make(StockBlock::class, ['quantity' => 5])
+        );
+
+        $this->assertEquals($variation->stockCount(), 10);
     }
 }

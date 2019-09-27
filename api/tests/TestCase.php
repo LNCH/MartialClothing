@@ -13,6 +13,11 @@ abstract class TestCase extends BaseTestCase
 
     protected $apiVersion = 'v1';
 
+    protected function shouldDropViews()
+    {
+        return true;
+    }
+
     public function getFromApi($route, $data = [])
     {
         return $this->apiCall('GET', $route, $data);

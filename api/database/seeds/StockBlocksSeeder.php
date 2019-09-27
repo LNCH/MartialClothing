@@ -14,9 +14,11 @@ class StockBlocksSeeder extends Seeder
     public function run()
     {
         foreach (ProductVariation::get() as $variation) {
-            $variation->stockBlocks()->save(
-                new StockBlock(['quantity' => rand(10, 20)])
-            );
+            if ($variation->id % 3 !== 0) {
+                $variation->stockBlocks()->save(
+                    new StockBlock(['quantity' => 10])
+                );
+            }
         }
     }
 }

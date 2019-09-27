@@ -25,6 +25,21 @@ class ProductVariation extends Model
         return $this->hasMany(StockBlock::class);
     }
 
+    public function stockInformation()
+    {
+        return $this->hasOne(StockInformation::class);
+    }
+
+    public function stockCount()
+    {
+        return $this->stockInformation->stock;
+    }
+
+    public function inStock()
+    {
+        return $this->stockCount() > 0;
+    }
+
     public function getPriceAttribute($value)
     {
         if ($value === null) {
