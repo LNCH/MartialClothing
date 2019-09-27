@@ -2,14 +2,14 @@
 
 namespace App\Domains\Product\Models;
 
+use App\Concerns\Filterable;
 use App\Domains\Category\Models\Category;
-use App\Domains\Product\Models\ProductVariation;
-use App\Filters\Filterer;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use Filterable;
+
     protected $fillable = [
         'name',
         'ident',
@@ -30,10 +30,5 @@ class Product extends Model
     public function variations()
     {
         return $this->hasMany(ProductVariation::class)->orderBy('order', 'asc');
-    }
-
-    public function scopeFilters(Builder $builder, array $scopes = [])
-    {
-        return (new Filterer(request()))->apply($builder, $scopes);
     }
 }
