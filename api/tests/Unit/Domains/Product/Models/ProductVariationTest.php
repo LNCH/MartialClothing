@@ -5,6 +5,7 @@ namespace Tests\Unit\Domains\Product\Models;
 use App\Domains\Product\Models\Product;
 use App\Domains\Product\Models\ProductVariation;
 use App\Domains\Product\Models\ProductVariationType;
+use App\Domains\Product\Models\StockBlock;
 use App\Services\Money;
 use Tests\TestCase;
 
@@ -72,5 +73,17 @@ class ProductVariationTest extends TestCase
         ]);
 
         $this->assertTrue($variation->priceVaries());
+    }
+
+    /** @test */
+    public function it_has_many_stocks(): void
+    {
+        $variation = create(ProductVariation::class);
+
+        $variation->stockBlocks()->save(
+            make(StockBlock::class)
+        );
+
+        $this->assertInstanceOf(StockBlock::class, $variation->stockBlocks->first());
     }
 }

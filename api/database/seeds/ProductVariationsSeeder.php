@@ -38,15 +38,14 @@ class ProductVariationsSeeder extends Seeder
         ];
 
         foreach ($variations as $variation) {
-            $variation['product_id'] = $product->id;
             $variation['product_variation_type_id'] = $ground->id;
             $product->variations()->save(
-                ProductVariation::create($variation)
+                new ProductVariation($variation)
             );
 
             $variation['product_variation_type_id'] = $wholeBean->id;
             $product->variations()->save(
-                ProductVariation::create($variation)
+                new ProductVariation($variation)
             );
         }
     }

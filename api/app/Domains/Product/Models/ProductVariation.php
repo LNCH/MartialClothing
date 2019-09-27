@@ -20,6 +20,11 @@ class ProductVariation extends Model
         return $this->hasOne(ProductVariationType::class, 'id', 'product_variation_type_id');
     }
 
+    public function stockBlocks()
+    {
+        return $this->hasMany(StockBlock::class);
+    }
+
     public function getPriceAttribute($value)
     {
         if ($value === null) {
