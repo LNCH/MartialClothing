@@ -31,7 +31,7 @@ class ProductsSeeder extends Seeder
             [
                 'name' => 'Columbian Dark Roast',
                 'ident' => 'columbian-dark-roast',
-                'price' => 5000,
+                'price' => 1000,
                 'description' => 'Some really strong coffee',
                 'category' => 'coffee'
             ]

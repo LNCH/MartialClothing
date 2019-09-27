@@ -28,10 +28,12 @@ class ProductVariationsSeeder extends Seeder
             [
                 'name' => '500g',
                 'order' => 2,
+                'price' => 1500,
             ],
             [
                 'name' => '1kg',
                 'order' => 3,
+                'price' => 2000,
             ]
         ];
 
