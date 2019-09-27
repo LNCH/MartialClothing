@@ -12,13 +12,22 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::filters($this->filters())->paginate(10);
+        $products = Product::with([
+            'variations.stockInformation'
+        ])->filters($this->filters())
+            ->paginate(10);
 
         return ProductIndexResource::collection($products);
     }
 
     public function show(Product $product)
     {
+        $product->load([
+            'variations.type',
+            'variations.stockInformation',
+            'variations.product'
+        ]);
+
         return new ProductResource($product);
     }
 
