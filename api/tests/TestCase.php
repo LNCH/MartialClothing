@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -16,6 +17,20 @@ abstract class TestCase extends BaseTestCase
     protected function shouldDropViews()
     {
         return true;
+    }
+
+    public function jsonGetAs(JWTSubject $user, $uri, $data = [], $headers = [])
+    {
+        return $this->json('GET', 'api/v1/'.$uri, $data, array_merge($headers, [
+            'Authorization' => 'Bearer ' . auth()->tokenById($user->id)
+        ]));
+    }
+
+    public function jsonPostAs(JWTSubject $user, $uri, $data = [], $headers = [])
+    {
+        return $this->json('POST', 'api/v1/'.$uri, $data, array_merge($headers, [
+            'Authorization' => 'Bearer ' . auth()->tokenById($user->id)
+        ]));
     }
 
     public function getFromApi($route, $data = [])

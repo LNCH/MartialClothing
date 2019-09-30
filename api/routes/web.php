@@ -11,14 +11,6 @@
 |
 */
 
-use App\Domains\Product\Models\ProductVariation;
-use App\Domains\Product\Models\StockInformation;
-
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/test', function () {
-    $variation = ProductVariation::first();
-    dd($variation, $variation->stockInformation);
 });
