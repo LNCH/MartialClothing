@@ -46,9 +46,22 @@
 
             <div id="nav" class="navbar-menu">
                 <div class="navbar-end">
-                    <nuxt-link :to="{ name: 'auth-login' }" class="navbar-item">
-                        Sign In
-                    </nuxt-link>
+                    <template v-if="!$auth.loggedIn">
+                        <nuxt-link :to="{ name: 'auth-login' }" class="navbar-item">
+                            Sign In
+                        </nuxt-link>
+                    </template>
+                    <template v-else>
+                        <a href="#" class="navbar-item">
+                            {{ $auth.user.name }}
+                        </a>
+                        <a href="#" class="navbar-item">
+                            Orders
+                        </a>
+                        <a href="#" class="navbar-item">
+                            Basket
+                        </a>
+                    </template>
                 </div>
             </div>
         </div>
