@@ -24,4 +24,22 @@ class BasketServiceTest extends TestCase
 
         $this->assertCount(1, $user->fresh()->basket);
     }
+
+    /** @test */
+    public function it_increments_quantity_when_adding_products(): void
+    {
+        $product = create(ProductVariation::class);
+
+        $basket = new BasketService($user = create(User::class));
+        $basket->add([
+            ['id' => $product->id, 'quantity' => 5]
+        ]);
+
+        $basket = new BasketService($user->fresh());
+        $basket->add([
+            ['id' => $product->id, 'quantity' => 5]
+        ]);
+
+        $this->assertEquals($user->fresh()->basket->first()->pivot->quantity, 10);
+    }
 }

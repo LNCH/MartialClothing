@@ -30,7 +30,16 @@ class BasketService
     protected function getStorePayload(array $products): array
     {
         return collect($products)->keyBy('id')->map(function ($product) {
-            return ['quantity' => $product['quantity']];
+            return ['quantity' => $product['quantity'] + $this->getCurrentQuantity($product['id'])];
         })->toArray();
+    }
+
+    protected function getCurrentQuantity($productId)
+    {
+        if ($product = $this->user->basket->where('id', $productId)->first()) {
+            return $product->pivot->quantity;
+        }
+
+        return 0;
     }
 }
