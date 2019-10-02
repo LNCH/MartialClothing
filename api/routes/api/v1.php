@@ -14,3 +14,5 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'Auth\LoginController@action');
     Route::get('me', 'Auth\MeController@action');
 });
+
+Route::resource('basket', 'Basket\BasketController');
