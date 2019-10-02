@@ -15,4 +15,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('me', 'Auth\MeController@action');
 });
 
-Route::resource('basket', 'Basket\BasketController');
+Route::resource('basket', 'Basket\BasketController', [
+    'parameters' => [
+        'basket' => 'productVariation'
+    ]
+]);

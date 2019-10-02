@@ -23,6 +23,13 @@ class BasketService
         $this->user->basket()->syncWithoutDetaching($products);
     }
 
+    public function update($productId, $quantity)
+    {
+        $this->user->basket()->updateExistingPivot($productId, [
+            'quantity' => $quantity
+        ]);
+    }
+
     /**
      * @param array $products
      * @return array

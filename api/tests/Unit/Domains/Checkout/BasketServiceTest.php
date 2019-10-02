@@ -42,4 +42,22 @@ class BasketServiceTest extends TestCase
 
         $this->assertEquals($user->fresh()->basket->first()->pivot->quantity, 10);
     }
+
+    /** @test */
+    public function it_can_update_a_basket_product_quantity(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 1
+            ]
+        );
+
+        $basket->update($product->id, 5);
+
+        $this->assertEquals($user->fresh()->basket->first()->pivot->quantity, 5);
+    }
 }

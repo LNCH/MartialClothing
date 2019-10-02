@@ -33,6 +33,20 @@ abstract class TestCase extends BaseTestCase
         ]));
     }
 
+    public function jsonPatchAs(JWTSubject $user, $uri, $data = [], $headers = [])
+    {
+        return $this->json('PATCH', 'api/v1/'.$uri, $data, array_merge($headers, [
+            'Authorization' => 'Bearer ' . auth()->tokenById($user->id)
+        ]));
+    }
+
+    public function jsonDeleteAs(JWTSubject $user, $uri, $data = [], $headers = [])
+    {
+        return $this->json('DELETE', 'api/v1/'.$uri, $data, array_merge($headers, [
+            'Authorization' => 'Bearer ' . auth()->tokenById($user->id)
+        ]));
+    }
+
     public function getFromApi($route, $data = [])
     {
         return $this->apiCall('GET', $route, $data);
@@ -41,6 +55,16 @@ abstract class TestCase extends BaseTestCase
     public function postToApi($route, $data = [])
     {
         return $this->apiCall('POST', $route, $data);
+    }
+
+    public function patchToApi($route, $data = [])
+    {
+        return $this->apiCall('PATCH', $route, $data);
+    }
+
+    public function deleteFromApi($route, $data = [])
+    {
+        return $this->apiCall('DELETE', $route, $data);
     }
 
     private function apiCall($method, $route, $data = [])
