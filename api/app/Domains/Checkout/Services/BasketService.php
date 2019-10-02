@@ -30,6 +30,11 @@ class BasketService
         ]);
     }
 
+    public function delete($productId)
+    {
+        $this->user->basket()->detach($productId);
+    }
+
     /**
      * @param array $products
      * @return array

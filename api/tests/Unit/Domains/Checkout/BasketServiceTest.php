@@ -60,4 +60,22 @@ class BasketServiceTest extends TestCase
 
         $this->assertEquals($user->fresh()->basket->first()->pivot->quantity, 5);
     }
+
+    /** @test */
+    public function it_can_delete_a_product_from_the_basket(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 1
+            ]
+        );
+
+        $basket->delete($product->id);
+
+        $this->assertCount(0, $user->fresh()->basket);
+    }
 }

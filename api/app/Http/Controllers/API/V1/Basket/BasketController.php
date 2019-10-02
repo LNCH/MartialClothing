@@ -24,4 +24,9 @@ class BasketController extends Controller
     {
         $basket->update($productVariation->id, $request->quantity);
     }
+
+    public function destroy(ProductVariation $productVariation, BasketService $basket)
+    {
+        $basket->delete($productVariation->id);
+    }
 }
