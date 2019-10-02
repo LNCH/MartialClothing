@@ -78,4 +78,22 @@ class BasketServiceTest extends TestCase
 
         $this->assertCount(0, $user->fresh()->basket);
     }
+
+    /** @test */
+    public function it_can_empty_the_basket(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 1
+            ]
+        );
+
+        $basket->empty();
+
+        $this->assertCount(0, $user->fresh()->basket);
+    }
 }

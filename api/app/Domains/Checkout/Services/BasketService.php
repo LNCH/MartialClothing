@@ -35,6 +35,11 @@ class BasketService
         $this->user->basket()->detach($productId);
     }
 
+    public function empty()
+    {
+        $this->user->basket()->detach();
+    }
+
     /**
      * @param array $products
      * @return array
