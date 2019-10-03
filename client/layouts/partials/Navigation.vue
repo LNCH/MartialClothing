@@ -58,9 +58,9 @@
                         <a href="#" class="navbar-item">
                             Orders
                         </a>
-                        <a href="#" class="navbar-item">
+                        <nuxt-link :to="{ name: 'basket' }" class="navbar-item">
                             Basket ({{ basketCount }})
-                        </a>
+                        </nuxt-link>
                     </template>
                 </div>
             </div>
