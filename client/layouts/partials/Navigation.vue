@@ -59,7 +59,7 @@
                             Orders
                         </a>
                         <a href="#" class="navbar-item">
-                            Basket
+                            Basket ({{ basketCount }})
                         </a>
                     </template>
                 </div>
@@ -74,7 +74,8 @@
     export default {
         computed: {
             ...mapGetters({
-                categories: 'categories'
+                categories: 'categories',
+                basketCount: 'basket/count'
             })
         }
     }
