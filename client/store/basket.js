@@ -18,5 +18,9 @@ export const actions = {
         let response = await this.$axios.get('basket').then((response) => response.data)
         commit('SET_PRODUCTS', response.data.products)
         return response
+    },
+    async destroy ({ dispatch }, productId) {
+        let response = await this.$axios.delete('basket/' + productId)
+        dispatch('getBasket')
     }
 }
