@@ -17,7 +17,7 @@ class BasketController extends Controller
         $this->middleware(['auth:api']);
     }
 
-    public function index(Request $request)
+    public function index(Request $request, BasketService $basket)
     {
         $request->user()->load([
             'basket.product',
@@ -25,7 +25,17 @@ class BasketController extends Controller
             'basket.stockInformation',
         ]);
 
-        return new BasketResource($request->user());
+        return (new BasketResource($request->user()))
+            ->additional([
+                'meta' => $this->meta($basket)
+            ]);
+    }
+
+    private function meta($basket)
+    {
+        return [
+            'empty' => $basket->isEmpty(),
+        ];
     }
 
     public function store(BasketStoreRequest $request, BasketService $basket)

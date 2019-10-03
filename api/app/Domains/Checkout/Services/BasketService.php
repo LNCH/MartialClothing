@@ -40,6 +40,11 @@ class BasketService
         $this->user->basket()->detach();
     }
 
+    public function isEmpty()
+    {
+        return $this->user->basket()->sum('quantity') === 0;
+    }
+
     /**
      * @param array $products
      * @return array

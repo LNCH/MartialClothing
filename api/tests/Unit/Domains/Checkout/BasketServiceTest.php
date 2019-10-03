@@ -96,4 +96,31 @@ class BasketServiceTest extends TestCase
 
         $this->assertCount(0, $user->fresh()->basket);
     }
+
+    /** @test */
+    public function it_can_check_if_the_basket_is_empty_based_on_quantities(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 0
+            ]
+        );
+
+        $this->assertTrue($basket->isEmpty());
+    }
+
+    /** @test */
+    public function it_shows_if_the_cart_is_empty(): void
+    {
+        $user = create(User::class);
+
+        $this->jsonGetAs($user, 'basket')
+            ->assertJsonFragment([
+                'empty' => true
+            ]);
+    }
 }
