@@ -35,6 +35,8 @@ class BasketController extends Controller
     {
         return [
             'empty' => $basket->isEmpty(),
+            'subtotal' => $basket->subtotal()->formatted(),
+            'total' => $basket->total()->formatted(),
         ];
     }
 

@@ -31,4 +31,26 @@ class BasketIndexTest extends TestCase
                 'id' => $product->id
             ]);
     }
+
+    /** @test */
+    public function it_shows_a_formatted_subtotal(): void
+    {
+        $user = create(User::class);
+
+        $this->jsonGetAs($user, 'basket')
+            ->assertJsonFragment([
+                'subtotal' => '£0.00'
+            ]);
+    }
+
+    /** @test */
+    public function it_shows_a_formatted_total(): void
+    {
+        $user = create(User::class);
+
+        $this->jsonGetAs($user, 'basket')
+            ->assertJsonFragment([
+                'total' => '£0.00'
+            ]);
+    }
 }

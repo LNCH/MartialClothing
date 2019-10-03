@@ -5,6 +5,7 @@ namespace Tests\Unit\Domains\Checkout;
 use App\Domains\Checkout\Services\BasketService;
 use App\Domains\Product\Models\ProductVariation;
 use App\Domains\User\Models\User;
+use App\Services\Money;
 use Tests\TestCase;
 
 class BasketServiceTest extends TestCase
@@ -122,5 +123,43 @@ class BasketServiceTest extends TestCase
             ->assertJsonFragment([
                 'empty' => true
             ]);
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_subtotal(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $this->assertInstanceOf(Money::class, $basket->subtotal());
+    }
+
+    /** @test */
+    public function it_returns_the_correct_subtotal(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class, [
+                'price' => 1000
+            ]), [
+                'quantity' => 2
+            ]
+        );
+
+        $this->assertEquals(2000, $basket->subtotal()->amount());
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_total(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $this->assertInstanceOf(Money::class, $basket->total());
     }
 }

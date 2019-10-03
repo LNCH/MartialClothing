@@ -3,6 +3,7 @@
 namespace App\Domains\Checkout\Services;
 
 use App\Domains\User\Models\User;
+use App\Services\Money;
 
 class BasketService
 {
@@ -42,7 +43,21 @@ class BasketService
 
     public function isEmpty()
     {
-        return $this->user->basket()->sum('quantity') === 0;
+        return $this->user->basket->sum('pivot.quantity') === 0;
+    }
+
+    public function subtotal()
+    {
+        $subtotal = $this->user->basket->sum(function ($product) {
+            return $product->price->amount() * $product->pivot->quantity;
+        });
+
+        return new Money($subtotal);
+    }
+
+    public function total()
+    {
+        return $this->subtotal();
     }
 
     /**
