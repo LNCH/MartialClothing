@@ -6,6 +6,16 @@
                 :key="product.id"
                 :product="product"
             />
+            <tr>
+                <td colspan="2"></td>
+                <td>
+                    <p class="has-text-weight-bold">Subtotal</p>
+                </td>
+                <td>
+                    {{ subtotal }}
+                </td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </template>
@@ -20,7 +30,8 @@
         },
         computed: {
             ...mapGetters({
-                products: 'basket/products'
+                products: 'basket/products',
+                subtotal: 'basket/subtotal'
             })
         }
     }
