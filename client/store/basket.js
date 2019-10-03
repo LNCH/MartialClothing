@@ -19,6 +19,10 @@ export const actions = {
         commit('SET_PRODUCTS', response.data.products)
         return response
     },
+    async update({ dispatch }, payload) { // Could destructure the payload...
+        let response = await this.$axios.patch('basket/' + payload.id, { quantity: payload.quantity })
+        dispatch('getBasket')
+    },
     async destroy ({ dispatch }, productId) {
         let response = await this.$axios.delete('basket/' + productId)
         dispatch('getBasket')
