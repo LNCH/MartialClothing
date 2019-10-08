@@ -51,7 +51,7 @@
         },
         computed: {
             fullName() {
-                return this.product.product.name + " - " + this.product.name
+                return this.product.product.name + " - " + this.product.type + " " + this.product.name
             }
         },
         watch: {
