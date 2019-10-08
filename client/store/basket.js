@@ -2,7 +2,8 @@ export const state = () => ({
     products: [],
     empty: true,
     subtotal: null,
-    total: null
+    total: null,
+    changed: false
 })
 
 export const getters = {
@@ -10,7 +11,8 @@ export const getters = {
     count: (state) => state.products.length,
     empty: (state) => state.empty,
     subtotal: (state) => state.subtotal,
-    total: (state) => state.total
+    total: (state) => state.total,
+    changed: (state) => state.changed
 }
 
 export const mutations = {
@@ -25,6 +27,9 @@ export const mutations = {
     },
     SET_TOTAL (state, total) {
         state.total = total
+    },
+    SET_CHANGED (state, changed) {
+        state.changed = changed
     }
 }
 
@@ -35,6 +40,7 @@ export const actions = {
         commit('SET_EMPTY', response.meta.empty)
         commit('SET_SUBTOTAL', response.meta.subtotal)
         commit('SET_TOTAL', response.meta.total)
+        commit('SET_CHANGED', response.meta.was_changed)
         return response
     },
     async update({ dispatch }, payload) { // Could destructure the payload...
