@@ -15,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(BasketService::class, function ($app) {
+            $app->auth->user()->load([
+                'basket.stockInformation'
+            ]);
+
             return new BasketService($app->auth->user());
         });
     }
