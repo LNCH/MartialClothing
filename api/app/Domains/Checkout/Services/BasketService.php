@@ -12,6 +12,8 @@ class BasketService
      */
     private $user;
 
+    protected $changed = false;
+
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -34,6 +36,24 @@ class BasketService
     public function delete($productId)
     {
         $this->user->basket()->detach($productId);
+    }
+
+    public function sync()
+    {
+        $this->user->basket->each(function ($product) {
+            $quantity = $product->minStock($product->pivot->quantity);
+
+            $this->changed = $quantity != $product->pivot->quantity;
+
+            $product->pivot->update([
+                'quantity' => $quantity
+            ]);
+        });
+    }
+
+    public function hasBeenChanged()
+    {
+        return $this->changed;
     }
 
     public function empty()

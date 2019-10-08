@@ -53,4 +53,21 @@ class BasketIndexTest extends TestCase
                 'total' => '£0.00'
             ]);
     }
+
+    /** @test */
+    public function it_syncs_the_basket(): void
+    {
+        $user = create(User::class);
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 2
+            ]
+        );
+
+        $this->jsonGetAs($user, 'basket')
+            ->assertJsonFragment([
+                'was_changed' => true
+            ]);
+    }
 }

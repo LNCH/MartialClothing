@@ -19,6 +19,8 @@ class BasketController extends Controller
 
     public function index(Request $request, BasketService $basket)
     {
+        $basket->sync();
+
         $request->user()->load([
             'basket.product',
             'basket.product.variations.stockInformation',
@@ -37,6 +39,7 @@ class BasketController extends Controller
             'empty' => $basket->isEmpty(),
             'subtotal' => $basket->subtotal()->formatted(),
             'total' => $basket->total()->formatted(),
+            'was_changed' => $basket->hasBeenChanged()
         ];
     }
 

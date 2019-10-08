@@ -53,4 +53,9 @@ class ProductVariation extends Model
     {
         return $this->price->amount() !== $this->product->price->amount();
     }
+
+    public function minStock($amount)
+    {
+        return min($amount, $this->stockCount());
+    }
 }

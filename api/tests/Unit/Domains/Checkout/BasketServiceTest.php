@@ -162,4 +162,40 @@ class BasketServiceTest extends TestCase
 
         $this->assertInstanceOf(Money::class, $basket->total());
     }
+
+    /** @test */
+    public function it_syncs_the_basket_to_update_quantities(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 2
+            ]
+        );
+
+        $basket->sync();
+
+        $this->assertEquals(0, $user->fresh()->basket->first()->pivot->quantity);
+    }
+
+    /** @test */
+    public function it_can_check_if_the_cart_has_been_changed_after_syncing(): void
+    {
+        $basket = new BasketService(
+            $user = create(User::class)
+        );
+
+        $user->basket()->attach(
+            $product = create(ProductVariation::class), [
+                'quantity' => 2
+            ]
+        );
+
+        $basket->sync();
+
+        $this->assertTrue($basket->hasBeenChanged());
+    }
 }
